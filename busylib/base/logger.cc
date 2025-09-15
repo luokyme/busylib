@@ -61,6 +61,7 @@ LogStream &Logger::stream(const char *fmt, ...)
     stream_ << buffer;
   }
   va_end(ap);
+  return stream_;
 }
 
 template <int N>
@@ -79,6 +80,7 @@ LogStream &LogStream::operator<<(const i32 n)
     char num_buf[12];
     sprintf(num_buf, "%d", n);
     buffer_.append(num_buf, strlen(num_buf));
+    return *this;
 }
 
 LogStream &LogStream::operator<<(const char *str)
@@ -92,6 +94,6 @@ LogStream &LogStream::operator<<(const char *str)
 
 LogStream &LogStream::operator<<(const std::string &str)
 {
-  operator<<(str.c_str());
+  return (*this) << str.c_str();
 }
 }
